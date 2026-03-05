@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: piece-service
+  profiles:
+    active:
+    - local
