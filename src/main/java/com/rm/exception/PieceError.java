@@ -6,7 +6,8 @@ public enum PieceError implements ErrorCode{
     NOMORE_PIECE_ISLEFT(HttpStatus.INTERNAL_SERVER_ERROR,"E104","영상의 개수가 부족합니다."),
     FINALSESSION_NOTFOUND(HttpStatus.NOT_FOUND,"E105","진행된 본투표가 없습니다."),
     PRELIMINARYSESSION_NOTFOUND(HttpStatus.NOT_FOUND,"E106","진행된 예비투표가 없습니다."),
-    ALREADY_VOTED(HttpStatus.ALREADY_REPORTED,"E107","이미 투표했습니다.");
+    ALREADY_VOTED(HttpStatus.CONFLICT,"E107","이미 투표했습니다."),
+    PIECE_NOT_FOUND(HttpStatus.NOT_FOUND,"E108","해당 영상이 존재하지 않습니다.");
 	private final HttpStatus status;
 	private final String code;
 	private final String msg;

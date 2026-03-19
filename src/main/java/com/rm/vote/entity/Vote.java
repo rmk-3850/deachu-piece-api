@@ -27,22 +27,22 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Vote {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "vote_session_id", nullable = false)
     private Long voteSessionId;
-    @Column(name = "uid", nullable = false)
-    private Long uid;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
     @Column(name = "candidate_id", nullable = false)
     private Long candidateId;
 
     public Vote(
         Long voteSessionId,
-        Long uid,
+        Long userId,
         Long candidateId
         ) {
         this.voteSessionId=voteSessionId;
-        this.uid=uid;
+        this.userId=userId;
         this.candidateId=candidateId;
     }
 }

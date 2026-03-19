@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.rm.candidatepiece.entity.CandidatePiece;
 
+
 public interface CandidatePieceRepository extends JpaRepository<CandidatePiece, Long>{
+
     @Modifying
     @Query("""
-        UPDATE Candidate c
+        UPDATE CandidatePiece c
         SET c.voteCount = c.voteCount+1
         WHERE c.id = :candidateId
     """)

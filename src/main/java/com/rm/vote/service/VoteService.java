@@ -1,5 +1,7 @@
 package com.rm.vote.service;
 
+import java.util.Random;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.rm.candidatepiece.repository.CandidatePieceRepository;
 import com.rm.exception.AlreadyVotedException;
 import com.rm.vote.entity.Vote;
 import com.rm.vote.respository.VoteRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,12 +32,12 @@ public class VoteService {
         }
         return false;
     }
-    public void vote(Long voteSessionId, Long uid, Long candidateId) {
+    public void vote(Long voteSessionId, Long userId, Long candidateId) {
         //이미 투표했으면 다시 투표할 수 없다.
-        if(voteRepository.existsByVoteSessionIdAndUid(voteSessionId, uid)){
+        if(voteRepository.existsByVoteSessionIdAndUserId(voteSessionId, userId)){
             throw new AlreadyVotedException();
         }
-        Vote vote=new Vote(voteSessionId, uid, candidateId);
+        Vote vote=new Vote(voteSessionId, userId, candidateId);
         try {
             voteRepository.save(vote);
             candidatePieceRepository.incrementVoteCount(candidateId);
@@ -46,4 +49,11 @@ public class VoteService {
         }
     }
 
+    public void init() {
+        Random r = new Random();
+        for (Long i = 2L; i <= 101L; i++) {
+            long candidateId = r.nextInt(2)+6;
+            vote(5L, i, candidateId);
+        }
+    }
 }

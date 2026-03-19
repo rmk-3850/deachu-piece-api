@@ -31,7 +31,7 @@ public class VoteServiceTest {
     @Test
     void 이미_투표했으면_다시_투표할_수_없다(){
         //given
-        when(voteRepository.existsByVoteSessionIdAndUid(1L, 1L))
+        when(voteRepository.existsByVoteSessionIdAndUserId(1L, 1L))
             .thenReturn(true);
         //when&then
         assertThrows(AlreadyVotedException.class,
@@ -47,7 +47,7 @@ public class VoteServiceTest {
             "uk_vote_session_uid"
         );
         var ex = new DataIntegrityViolationException("unique", cause);
-        when(voteRepository.existsByVoteSessionIdAndUid(1L, 1L))
+        when(voteRepository.existsByVoteSessionIdAndUserId(1L, 1L))
             .thenReturn(false);
         when(voteRepository.save(any(Vote.class))).thenThrow(ex);
         //when&then

@@ -1,0 +1,1 @@
+CREATE INDEX idx_end_date ON vote_session (end_date);

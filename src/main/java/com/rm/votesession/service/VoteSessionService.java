@@ -4,6 +4,7 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class VoteSessionService {
             localDate.getMonthValue(),
             (voteType == VoteType.PRELIMINARY ? "예비" : "본선"));
     }
-    @Scheduled(cron = "0 */10 0 * * MON")
+
+    @Scheduled(cron = "0 26 12 * * *")
     @Transactional
     public void checkAndRotateSession(){
         log.info("투표 세션 로테이션 체크 시작");

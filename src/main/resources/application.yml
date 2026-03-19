@@ -3,4 +3,4 @@ spring:
     name: piece-service
   profiles:
     active:
-    - local
+    - release

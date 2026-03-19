@@ -23,7 +23,7 @@ public class Piece {
 	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false,unique = true)
+	@Column(name = "youtube_video_id",nullable = false,unique = true)
     private String youtubeVideoId;
 
     @Column(nullable = false)
@@ -31,23 +31,27 @@ public class Piece {
 
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "thumbnail_url",nullable = false)
     private String thumbnailUrl;
 
-    @Column(nullable = false)
+    @Column(name = "published_at",nullable = false)
     private LocalDate publishedAt;
     
-    @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "video_type",nullable = false)
+    @Enumerated(EnumType.STRING)
     private VideoType videoType;
-
+    
+    @Column(name = "view_count",nullable = false)
     private Long viewCount=0L;
 
+    @Column(name = "like_count",nullable = false)
     private Long likeCount=0L;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ApprovalStatus status=ApprovalStatus.PENDING;
     
+    @Column(name = "is_masterpiece",nullable = false)
     private boolean isMasterpiece=false;
     
     private Integer weight=0;
