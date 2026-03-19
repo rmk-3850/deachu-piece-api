@@ -38,7 +38,7 @@ public class VoteSessionService {
             (voteType == VoteType.PRELIMINARY ? "예비" : "본선"));
     }
 
-    @Scheduled(cron = "0 26 12 * * *")
+    @Scheduled(cron = "0 0 0 * * MON")
     @Transactional
     public void checkAndRotateSession(){
         log.info("투표 세션 로테이션 체크 시작");
