@@ -1,7 +1,7 @@
 package com.rm.votesession.service;
 
 import java.time.Clock;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +31,10 @@ public class VoteSessionService {
     private final PieceRepository pieceRepository;
     private final VoteSessionRepository voteSessionRepository;
 
-    private String makeTerm(LocalDate localDate, VoteType voteType){
+    private String makeTerm(LocalDateTime localDatetime, VoteType voteType){
         return String.format("%d년 %d월 %s 투표", 
-            localDate.getYear(), 
-            localDate.getMonthValue(),
+            localDatetime.getYear(), 
+            localDatetime.getMonthValue(),
             (voteType == VoteType.PRELIMINARY ? "예비" : "본선"));
     }
 
@@ -50,7 +50,7 @@ public class VoteSessionService {
             return;
         }
         // 3. 오늘이 종료일인지 확인 (현재 날짜가 종료일보다 같거나 크면)
-        if(!LocalDate.now(clock).isBefore(current.getEndDate())){
+        if(!LocalDateTime.now(clock).isBefore(current.getEndDate())){
             //본투표 세션 생성
             if(current.getVoteType() == VoteType.PRELIMINARY) createNewFinalSession();
             //예비투표 세션 생성
@@ -78,7 +78,7 @@ public class VoteSessionService {
         })
         .map(CandidatePiece::new)
         .toList();
-        LocalDate now=LocalDate.now(clock);
+        LocalDateTime now=LocalDateTime.now(clock);
         // 4. 신규 예비 투표 세션 생성 (2주 기간)
         VoteSession newSession=VoteSession.builder()
         .term(makeTerm(now,VoteType.PRELIMINARY))
@@ -141,7 +141,7 @@ public class VoteSessionService {
             })
             .map(CandidatePiece::new)
             .toList();
-        LocalDate now=LocalDate.now(clock);
+        LocalDateTime now=LocalDateTime.now(clock);
         // 4. 활성 세션 비활성화
         voteSessionRepository.deactivateAllActiveSessions();
         // 5. 신규 본투표 세션 생성 (4주 기간)

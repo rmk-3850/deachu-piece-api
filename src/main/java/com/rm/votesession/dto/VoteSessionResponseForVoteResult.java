@@ -1,10 +1,11 @@
-package com.rm.piece.dto;
+package com.rm.votesession.dto;
 
 import java.util.List;
 
+import com.rm.piece.dto.CandidateWithPieceDto;
 import com.rm.votesession.VoteType;
 
-public record VoteSessionResponse(
+public record VoteSessionResponseForVoteResult(
     Long id,
     String term,
     VoteType voteType,

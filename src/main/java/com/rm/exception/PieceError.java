@@ -3,7 +3,7 @@ import org.springframework.http.HttpStatus;
 
 public enum PieceError implements ErrorCode{
     SYNCHRONIZATION_FAILURE(HttpStatus.INTERNAL_SERVER_ERROR,"E103","유튜브 동기화에 실패했습니다."),
-    NOMORE_PIECE_ISLEFT(HttpStatus.INTERNAL_SERVER_ERROR,"E104","영상의 개수가 부족합니다."),
+    NOMORE_PIECE_ISLEFT(HttpStatus.NOT_FOUND,"E104","영상의 개수가 부족합니다."),
     FINALSESSION_NOTFOUND(HttpStatus.NOT_FOUND,"E105","진행된 본투표가 없습니다."),
     PRELIMINARYSESSION_NOTFOUND(HttpStatus.NOT_FOUND,"E106","진행된 예비투표가 없습니다."),
     ALREADY_VOTED(HttpStatus.CONFLICT,"E107","이미 투표했습니다."),

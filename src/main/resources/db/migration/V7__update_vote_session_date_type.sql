@@ -1,0 +1,2 @@
+ALTER TABLE vote_session MODIFY COLUMN start_date DATETIME;
+ALTER TABLE vote_session MODIFY COLUMN end_date DATETIME;

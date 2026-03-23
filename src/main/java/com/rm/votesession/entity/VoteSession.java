@@ -1,6 +1,6 @@
 package com.rm.votesession.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +45,10 @@ public class VoteSession {
 	private VoteType voteType;
 	
 	@Column(name = "start_date",nullable = false)
-	private LocalDate startDate;
+	private LocalDateTime startDate;
 	
 	@Column(name = "end_date",nullable = false)
-	private LocalDate endDate;
+	private LocalDateTime endDate;
 	
 	@Column(name = "is_active",nullable = false)
 	private boolean isActive=false;
@@ -57,7 +57,7 @@ public class VoteSession {
 	private List<CandidatePiece> candidates=new ArrayList<CandidatePiece>();
 	
 	@Builder
-	public VoteSession(String term,VoteType voteType,LocalDate startDate,LocalDate endDate,boolean isActive) {
+	public VoteSession(String term,VoteType voteType,LocalDateTime startDate,LocalDateTime endDate,boolean isActive) {
 		this.term=term;
 		this.voteType=voteType;
 		this.startDate=startDate;

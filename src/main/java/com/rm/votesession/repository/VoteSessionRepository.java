@@ -1,5 +1,6 @@
 package com.rm.votesession.repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,6 @@ import org.springframework.data.repository.query.Param;
 import com.rm.votesession.entity.VoteSession;
 
 import jakarta.persistence.LockModeType;
-import java.time.LocalDate;
 
 
 public interface VoteSessionRepository extends JpaRepository<VoteSession, Long>{
@@ -30,7 +30,7 @@ public interface VoteSessionRepository extends JpaRepository<VoteSession, Long>{
         ORDER BY v.endDate DESC
     """)
     Slice<VoteSession> findNotActiveWithCandidates(
-        @Param("endDate") LocalDate endDate,Pageable pageable);
+        @Param("endDate") LocalDateTime endDate,Pageable pageable);
 
     @Modifying
     @Query(value = "UPDATE VoteSession v SET v.isActive=false WHERE v.isActive=true")

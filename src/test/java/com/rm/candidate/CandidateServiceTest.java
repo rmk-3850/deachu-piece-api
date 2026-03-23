@@ -14,9 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.rm.candidatepiece.entity.CandidatePiece;
 import com.rm.candidatepiece.repository.CandidatePieceRepository;
 import com.rm.candidatepiece.service.CandidateService;
-import com.rm.piece.dto.VoteSessionResponse;
 import com.rm.piece.entity.Piece;
 import com.rm.votesession.VoteType;
+import com.rm.votesession.dto.VoteSessionResponseForVote;
 import com.rm.votesession.entity.VoteSession;
 import com.rm.votesession.repository.VoteSessionRepository;
 
@@ -37,7 +37,7 @@ public class CandidateServiceTest {
         given(voteSessionRepository.findByIsActiveTrue())
                 .willReturn(Optional.empty());
         // when
-        VoteSessionResponse result = candidateService.getCandidates();
+        VoteSessionResponseForVote result = candidateService.getCandidates();
         // then
         assertNull(result);
     }
@@ -57,7 +57,7 @@ public class CandidateServiceTest {
         given(session.getCandidates()).willReturn(List.of(cPiece1, cPiece2));
 
         // when
-        VoteSessionResponse result = candidateService.getCandidates();
+        VoteSessionResponseForVote result = candidateService.getCandidates();
 
         // then
         assertNotNull(result);

@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rm.candidatepiece.service.CandidateService;
 import com.rm.exception.CommonResponse;
 import com.rm.exception.PieceSuccess;
-import com.rm.piece.dto.VoteSessionResponse;
+import com.rm.votesession.dto.VoteSessionResponseForVote;
+import com.rm.votesession.dto.VoteSessionResponseForVoteResult;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,15 +24,15 @@ public class CandidateController {
     private final CandidateService candidateService;
 
     @GetMapping("/candidates")
-    public ResponseEntity<CommonResponse<VoteSessionResponse>> getCandidates() {
-        VoteSessionResponse response = candidateService.getCandidates();
+    public ResponseEntity<CommonResponse<VoteSessionResponseForVote>> getCandidates() {
+        VoteSessionResponseForVote response = candidateService.getCandidates();
         return ResponseEntity.status(PieceSuccess.SUCCESS.getStatus())
             .body(CommonResponse.success(PieceSuccess.SUCCESS, response));
     }
     
     @GetMapping("/results")
-    public ResponseEntity<CommonResponse<Slice<VoteSessionResponse>>> getVoteResult(Pageable pageable){
-        Slice<VoteSessionResponse> response = candidateService.getVoteResults(pageable);
+    public ResponseEntity<CommonResponse<Slice<VoteSessionResponseForVoteResult>>> getVoteResult(Pageable pageable){
+        Slice<VoteSessionResponseForVoteResult> response = candidateService.getVoteResults(pageable);
         return ResponseEntity.status(PieceSuccess.SUCCESS.getStatus())
             .body(CommonResponse.success(PieceSuccess.SUCCESS, response));
     }

@@ -4,7 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 import java.time.Clock;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +39,8 @@ public class VoteSessionServiceTest {
     @Test
     void 활성세션이_없으면_예비투표세션을_생성한다(){
         //given
-        LocalDate today=LocalDate.of(2026, 3, 1);
-        when(clock.instant()).thenReturn(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDateTime today=LocalDateTime.of(2026, 3, 1, 0, 0);
+        when(clock.instant()).thenReturn(today.atZone(ZoneId.systemDefault()).toInstant());
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
         when(voteSessionRepository.findByIsActiveTrue()).thenReturn(Optional.empty());
 
@@ -60,8 +60,8 @@ public class VoteSessionServiceTest {
     @Test
     void 예비투표가_종료되면_본투표를_생성한다(){
         //given
-        LocalDate today=LocalDate.of(2026, 3, 1);
-        when(clock.instant()).thenReturn(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDateTime today=LocalDateTime.of(2026, 3, 1, 0, 0);
+        when(clock.instant()).thenReturn(today.atZone(ZoneId.systemDefault()).toInstant());
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 
         VoteSession preliminary=VoteSession.builder()
@@ -109,8 +109,8 @@ public class VoteSessionServiceTest {
     @Test
     void 본투표가_종료되면_대작선정과_예비투표를_생성한다(){
         //given
-        LocalDate today=LocalDate.of(2026, 3, 1);
-        when(clock.instant()).thenReturn(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDateTime today=LocalDateTime.of(2026, 3, 1, 0, 0);
+        when(clock.instant()).thenReturn(today.atZone(ZoneId.systemDefault()).toInstant());
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 
         VoteSession finalSession=VoteSession.builder()
