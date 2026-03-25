@@ -7,8 +7,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rm.candidatepiece.entity.CandidatePiece;
 import com.rm.candidatepiece.repository.CandidatePieceRepository;
 import com.rm.exception.AlreadyVotedException;
+import com.rm.vote.dto.VoteResponseForWS;
 import com.rm.vote.entity.Vote;
 import com.rm.vote.respository.VoteRepository;
 
@@ -32,7 +34,7 @@ public class VoteService {
         }
         return false;
     }
-    public void vote(Long voteSessionId, Long userId, Long candidateId) {
+    public VoteResponseForWS vote(Long voteSessionId, Long userId, Long candidateId) {
         //이미 투표했으면 다시 투표할 수 없다.
         if(voteRepository.existsByVoteSessionIdAndUserId(voteSessionId, userId)){
             throw new AlreadyVotedException();
@@ -40,13 +42,15 @@ public class VoteService {
         Vote vote=new Vote(voteSessionId, userId, candidateId);
         try {
             voteRepository.save(vote);
-            candidatePieceRepository.incrementVoteCount(candidateId);
+            candidatePieceRepository.incrementVoteCount(candidateId);            
         } catch (DataIntegrityViolationException e) {
             if (isUniqueConstraintViolation(e)) {
                 throw new AlreadyVotedException();
             }
             throw e;
         }
+        CandidatePiece cPiece = candidatePieceRepository.findById(candidateId).get();
+        return new VoteResponseForWS(candidateId, cPiece.getVoteCount());
     }
 
     public void init() {

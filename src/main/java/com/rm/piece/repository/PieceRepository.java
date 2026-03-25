@@ -19,11 +19,11 @@ public interface PieceRepository extends JpaRepository<Piece, Long> {
 	Optional<Piece> findByYoutubeVideoId(String videoId);
 	
 	@Query(value = """
-		SELECT p.* FROM piece p
-		WHERE p.is_masterpiece=false
-		AND p.status='APPROVED'
-		ORDER BY (RAND() * (p.weight +1)) DESC
-		LIMIT :count
+	SELECT * FROM piece
+	WHERE is_masterpiece=false
+	AND status='APPROVED'
+	ORDER BY (RAND() * (weight + 1)) DESC
+	LIMIT :count
 	""",nativeQuery = true)
 	List<Piece> findCandidateByWeightedRandom(@Param("count")int count);
 }

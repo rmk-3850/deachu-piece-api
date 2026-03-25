@@ -11,6 +11,7 @@ public class PieceSecurityCustomizer implements SecurityCustomizer{
 	public void customize(HttpSecurity http) throws Exception {
 		http
 		.authorizeHttpRequests(auth->auth
+			.requestMatchers("/ws/**").permitAll()
 			.requestMatchers("/public/**").permitAll()
 			.requestMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
